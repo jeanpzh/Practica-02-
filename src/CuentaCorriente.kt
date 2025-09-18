@@ -6,8 +6,7 @@ class CuentaCorriente(
     private var sobregiro: Float = 0f
 
     override fun retirar(monto: Float): Boolean {
-        require(monto > 0f) { "El monto a retirar debe ser positivo." }
-        if (monto <= saldo) {
+        if (monto <= saldo && monto > 0f) {
             saldo -= monto
         }
         else {
@@ -40,10 +39,10 @@ class CuentaCorriente(
     }
 
     override fun imprimir() {
-        println("=== Cuenta Corriente ===")
-        println("Saldo: $saldo")
-        println("Comisión mensual (último corte): $comisionMensual")
-        println("Transacciones (consignaciones + retiros): ${numeroConsignaciones + numeroRetiros}")
-        println("Sobregiro: $sobregiro")
+        println("\n=== Cuenta Corriente ===")
+        println("Saldo: $${"%.2f".format(saldo)}")
+        println("Comisión mensual: $${"%.2f".format(comisionMensual)}")
+        println("Número de transacciones: ${numeroConsignaciones + numeroRetiros}")
+        println("Sobregiro: $${"%.2f".format(sobregiro)}")
     }
 }

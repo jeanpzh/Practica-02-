@@ -4,7 +4,7 @@ class CuentaAhorros(
 ) : Cuenta(saldoInicial, tasaAnual) {
 
     var activa: Boolean = saldoInicial >= 10_000f
-        private set // Pone como privado el atributo para el setter, pero publico para el get
+        private set // Establece como privado el atributo para el setter, pero público para el get
 
     override fun consignar(monto: Float) {
         if (!activa) {
@@ -15,14 +15,16 @@ class CuentaAhorros(
     }
 
     override fun retirar(monto: Float): Boolean {
-        if (!activa) {
-            println("Cuenta de ahorros inactiva: no se puede retirar.")
-            return false
+        return if (activa) {
+            super.retirar(monto)
+        } else {
+            println("Cuenta de ahorros inactiva: no se puede consignar.")
+            false
         }
-        return super.retirar(monto)
     }
 
     override fun extractoMensual() {
+        //CoerceAtLeast garantiza que el valor no sea menor a un mínimo asignado
         val retirosExcedentes = (numeroRetiros - 4).coerceAtLeast(0)
         if (retirosExcedentes > 0) {
             comisionMensual += 1000f * retirosExcedentes
@@ -32,10 +34,10 @@ class CuentaAhorros(
     }
 
     override fun imprimir() {
-        println("=== Cuenta de Ahorros ===")
-        println("Saldo: $saldo")
-        println("Comisión mensual (último corte): $comisionMensual")
-        println("Transacciones (consignaciones + retiros): ${numeroConsignaciones + numeroRetiros}")
-        println("¿Activa?: $activa")
+        println("\n=== Cuenta de Ahorros ===")
+        println("Saldo: $${"%.2f".format(saldo)}")
+        println("Comisión mensual: $${"%.2f".format(comisionMensual)}")
+        println("Número de transacciones: ${numeroConsignaciones + numeroRetiros}")
+        println("Estado: ${if (activa) "ACTIVA" else "INACTIVA"}")
     }
 }

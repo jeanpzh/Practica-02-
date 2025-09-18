@@ -39,11 +39,11 @@ open class Cuenta(
     }
 
     open fun imprimir() {
-        println("=== Cuenta (Base) ===")
-        println("Saldo: $saldo")
-        println("Consignaciones: $numeroConsignaciones")
-        println("Retiros: $numeroRetiros")
-        println("Tasa anual (%): $tasaAnual")
-        println("Comisión mensual: $comisionMensual")
+        println("=== Información de la Cuenta ===")
+        println("Saldo: $${"%.2f".format(saldo)}")
+        println("Número de consignaciones: $numeroConsignaciones")
+        println("Número de retiros: $numeroRetiros")
+        println("Tasa anual: $tasaAnual%")
+        println("Comisión mensual: $${"%.2f".format(comisionMensual)}")
     }
 }
